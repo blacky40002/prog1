@@ -1,0 +1,52 @@
+/* Stile generale per il corpo della pagina */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    text-align: center; /* Centra il testo */
+}
+
+/* Stile per l'intestazione */
+h1 {
+    background: #3e3d3d;
+    color: white;
+    padding: 10px 0;
+}
+
+/* Stile per il contenitore dei prodotti */
+#prodotti {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+/* Stile per ogni prodotto */
+#prodotti div {
+    background: white;
+    margin: 10px;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 300px; /* Larghezza fissa per ogni prodotto */
+    transition: transform 0.2s; /* Animazione al passaggio del mouse */
+}
+
+/* Stile per le immagini dei prodotti */
+#prodotti img {
+    width: 100%; /* Larghezza dell'immagine uguale a quella del contenitore */
+    height: auto; /* Altezza proporzionale alla larghezza */
+    border-radius: 5px;
+}
+
+/* Stile per i titoli dei prodotti */
+#prodotti h2 {
+    color: #333;
+}
+
+/* Effetto al passaggio del mouse */
+#prodotti div:hover {
+    transform: scale(1.05); /* Leggero ingrandimento al passaggio del mouse */
+    cursor: pointer;
+}

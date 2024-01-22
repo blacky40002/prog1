@@ -1,0 +1,55 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+}
+
+.container {
+    text-align: center;
+    width: 50%; /* Imposta la larghezza a metà della finestra */
+    margin-left: auto; /* Centra automaticamente a sinistra */
+    margin-right: auto; /* e a destra */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Stilizzazione della scritta */
+h1 {
+    font-size: 6em; /* Aumenta la dimensione del testo */
+    font-family: 'Arial', sans-serif; /* Cambia il font se necessario */
+    /* Altri stili per la scritta */
+}
+.avviso-valuta {
+    color: red;
+    display: block;
+}
+
+.avviso-nascosto {
+    display: none;
+}
+
+.immagine-angolo {
+    position: fixed;
+    width: 200px;  
+    height: 200px; 
+    background-size: cover;
+    background-position: left;
+    background-repeat: repeat;
+}
+
+
+#immagineAngolo4 {
+    background-image: url('../immagini/store-7850716_1920.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;   /* Imposta la larghezza a metà della finestra */
+    height: 100%; /* Imposta l'altezza a tutta la finestra */
+    z-index: -1;  /* Assicurati che sia dietro al contenuto della pagina */
+}
