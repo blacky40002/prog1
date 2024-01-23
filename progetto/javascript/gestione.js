@@ -1,6 +1,5 @@
 let cookieStr = [];
 
-let cookieStrJS = JSON.parse(localStorage.getItem("cookieStr")) || [];
 
 function inizializza() {
   document.getElementById("avvisoValuta").classList.add("avviso-nascosto");
@@ -19,11 +18,15 @@ function procedi() {
   }
 }
 
-function aggiornaLocalStorage(cookieStr) {
-  if (cookieStr !== undefined) {
-    localStorage.setItem("cookieStr", JSON.stringify(cookieStr));
-  }
+function aggiornaLocalStorage(cookie) {
+  let cookieInMemoria = localStorage.getItem("cookieStr");
+  let cookieTrasformato = cookieInMemoria ? JSON.parse(cookieInMemoria) : [];
+  cookieTrasformato.push(cookie);
+  cookieStr = cookieTrasformato;
+  localStorage.setItem("cookieStr", JSON.stringify(cookieStr));
 }
+
+
 function creaCookie(valuta) {
   var scadenzaMilliSecondi = 15 * 60 * 1000; // 15 minuti
   var data = new Date();
@@ -35,7 +38,7 @@ function creaCookie(valuta) {
 }
 
 function aggiornaCookie(prodotto, valore) {
-  if (cookieStr.length >= 2) {
+  if (cookieStr.length > 2) {
     if (controlloScadenza(cookieStr[1])) {
       cookieStr = [];
       aggiornaLocalStorage(cookieStr);
@@ -48,7 +51,7 @@ function aggiornaCookie(prodotto, valore) {
       }
     }
   } else {
-    window.location.href = "../html/index.html";
+    window.location.href = "../index.html";
     alert("C'è stato un errore inaspettato ricominciare la sessione!");
   }
 }
@@ -60,10 +63,4 @@ function controlloScadenza(dataDacontrollare) {
     return false;
   } else return true;
 }
-/*
-/* document.addEventListener("DOMContentLoaded", (event) => {
-  document.getElementById("procedi").addEventListener("click", procedi);
-  inizializza();
-  /*  estraiCookie(); */
-/*   generaElementiHTML(); */
-/* });  */
+

@@ -1,17 +1,21 @@
 var scarpe = [];
 var magliette = [];
 var pantaloni = [];
-var cookieStr = [];
 
-function estraiCookie() {
+
+function estraiCookie(cookieStr) {
   if (cookieStr.length > 2 && controlloScadenza(cookieStr[1])) {
     for (var i = 2; i < cookieStr.length; i++) {
-      var valSalvato = cookieStr[i].split("=");
-      var tipoProdotto = valSalvato[0];
-      var prodotto = valSalvato[1];
+      var tipoProdotto = cookieStr[i].tipo;
+      var prodotto = cookieStr[i].quantita;
+      console.log(tipoProdotto, prodotto)
       smistaProdotti(tipoProdotto, prodotto);
     }
+  } else {
+    window.location.href = "../index.html";
+    alert("C'è stato un errore inaspettato ricominciare la sessione!");
   }
+
 }
 function smistaProdotti(primo, secondo) {
   if (primo.includes("Scarpe")) {
@@ -34,8 +38,13 @@ function generaElementiHTML() {
       contenitore.appendChild(nodo);
     });
   }
-
+console.log(scarpe.length);
   creaElementiPerProdotto(scarpe, "contenitoreScarpe");
   creaElementiPerProdotto(magliette, "contenitoreMagliette");
   creaElementiPerProdotto(pantaloni, "contenitorePantaloni");
+}
+window.onload = function () {
+  cookieStr = JSON.parse(localStorage.getItem("cookieStr")) || [];
+  estraiCookie(cookieStr);
+  generaElementiHTML();
 }

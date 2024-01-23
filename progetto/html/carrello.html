@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <script src="ConvertitoreValuta.js"></script>
-    <title>Convertitore di valuta</title>
-  </head>
-  <body>
-    <input type="text" id="valuta" /> Valuta
-    <input type="text" id="fattore" /> Fattore di conversione
-    <input type="button" id="imposta" value="Imposta" />
-    <br />
-    <input type="text" id="importo" /> Importo da convertire
-    <input type="button" id="converti" value="Converti" />
-    <br />
-    <input type="text" id="risultato" readonly="readonly" /> Importo convertito
-  </body>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrello</title>
+  <link rel="stylesheet" href="../css/carrello.css">
+
+</head>
+<body>
+<div class="contenitori">
+  <h1>Il tuo carrello</h1>
+  <div id="contenitoreScarpe"></div>
+  <div id="contenitoreMagliette"></div>
+  <div id="contenitorePantaloni"></div>
+  <button id="bottone">Acquista</button>
+</div>
+<script src="../javascript/gestione.js"></script>
+<script src="../javascript/carrello.js"></script>
+
+</body>
 </html>

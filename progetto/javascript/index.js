@@ -16,3 +16,15 @@ function procedi() {
     window.location.href = "../html/homepage.html";
   }
 }
+function procedi() {
+  var valuta = document.getElementById("valuta").value;
+  var avvisoValuta = document.getElementById("avvisoValuta");
+
+  if (valuta === "-") {
+    avvisoValuta.classList.remove("avviso-nascosto");
+  } else {
+    avvisoValuta.classList.add("avviso-nascosto");
+    creaCookie(valuta);
+    window.location.href = "../html/homepage.html";
+  }
+}

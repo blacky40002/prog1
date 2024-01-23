@@ -32,12 +32,13 @@ document.addEventListener("DOMContentLoaded", function () {
       var prodottiCookie = "";
       if (prodotto2 > 0) {
         prodottiCookie += tipoProdottoH1 + "prodotto2=" + prodotto2 + ";";
+          aggiornaCookie(tipoProdottoH1, prodottiCookie)
       }
       if (prodotto1 > 0) {
         prodottiCookie += tipoProdottoH1 + "prodotto1=" + prodotto1 + ";";
+          aggiornaCookie(tipoProdottoH1, prodottiCookie)
       }
       window.location.href = "../homepage.html";
-      localStorage.setItem("cookieStr", JSON.stringify(prodottiCookie));
       if (!!prodottiCookie) {
         throw alert("prodotti aggiunti al carrello");
       }
