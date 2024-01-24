@@ -5,6 +5,9 @@ function gestoreCursore() {
     alert("gestoreCursore " + e);
   }
 }
+bottoneCarrello.addEventListener("click", function () {
+  window.location.href = "../html/carrello.html";
+});
 
 document.addEventListener("DOMContentLoaded", function () {
   let prodotti = [
