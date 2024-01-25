@@ -14,71 +14,86 @@ function procedi() {
   }
 }
 
-function aggiornaLocalStorage(cookie) {
-  console.log("Updating local storage with: ", cookie); // Debugging
-  localStorage.setItem("cookieStr", JSON.stringify(cookie));
-}
+
 
 function creaCookie(valuta) {
   localStorage.clear();
-  var scadenzaMilliSecondi = 15 * 60 * 1000; // 15 minuti
+  var scadenzaMilliSecondi = 15 * 60 * 1000; // 15 minutes in milliseconds
   var data = new Date();
-  data.setTime(data.getTime() + scadenzaMilliSecondi);
+  var expirationTime = data.getTime() + scadenzaMilliSecondi; // Expiration time in milliseconds
 
   cookieStr[0] = valuta;
-  cookieStr[1] = data.toISOString();
+  cookieStr[1] = expirationTime; // Store the expiration time directly in milliseconds
   aggiornaLocalStorage(cookieStr);
-  console.log("Cookie created: ", cookieStr); // Debugging
+  console.log("Cookie created: ", cookieStr);
   console.log("Current cookie item:", cookieStr[1]);
 }
 
-function aggiornaLocalStorage(cookie) {
-  let cookieInMemoria = localStorage.getItem("cookieStr");
-  let cookieTrasformato = cookieInMemoria ? JSON.parse(cookieInMemoria) : [];
-  cookieTrasformato.push(cookie);
-  cookieStr = cookieTrasformato;
+
+function aggiornaLocalStorage(newCookieData) {
   localStorage.setItem("cookieStr", JSON.stringify(cookieStr));
+/*  let cookieInMemoria = localStorage.getItem("cookieStr");
+  let cookieTrasformato = cookieInMemoria ? JSON.parse(cookieInMemoria) : [];
+
+  // Add each new cookie data item to the transformed cookie array
+  for (var i = 0; i < newCookieData.length; i++) {
+    cookieTrasformato.push(newCookieData[i]);
+  }
+
+  localStorage.setItem("cookieStr", JSON.stringify(cookieTrasformato));*/
 }
 
+
 function aggiornaCookie(prodotto, valore) {
+  cookieStr = JSON.parse(localStorage.getItem("cookieStr"));
   if (controlloScadenza(cookieStr[1])) {
+    // Session is valid, update the cookie
+
+      let nuovoCookie = [prodotto, valore];
+      cookieStr.push(nuovoCookie);
+      aggiornaLocalStorage(cookieStr);
+      alert("prodotti aggiunti al carrello");
+
+    }
+}
+
+
+function controlloScadenza(dataScadenza) {
+  var oraAttuale = new Date().getTime();
+  if (oraAttuale < dataScadenza) {
+    return true;
+  } else {
     cookieStr = [];
     aggiornaLocalStorage(cookieStr);
-    window.location.href = "../html/index.html";
+    window.location.href = "../index.html";
     alert("Sessione scaduta!");
-  } else if (prodotto && valore) {
-    cookieStr.push(prodotto + "=" + valore);
-    aggiornaLocalStorage(cookieStr);
-  } else {
-    console.log("Nessun prodotto da aggiungere o sessione non iniziata.");
-    // Potentially handle the case where no products are added yet
+    return false;
   }
+
 }
-function controlloScadenza(dataDacontrollare) {
-  var oraAttuale = new Date().getTime();
-  var oraScadenza = new Date(dataDacontrollare).getTime();
-  if (oraAttuale >= oraScadenza) {
-    return true;
-  } else return false;
-}
+
+
+
+
 
 function prodottiCaricamento() {
   var h1NelCont = document.querySelector(".cont h1");
   var tipoProdottoH1 = h1NelCont.className;
   var prodottiCookie = "";
   if (prodotto2 > 0) {
-    prodottiCookie += tipoProdottoH1 + "prodotto2=" + prodotto2 + ";";
+    prodottiCookie += tipoProdottoH1 + " eleganti=" + prodotto2 + ";";
   }
   if (prodotto1 > 0) {
-    prodottiCookie += tipoProdottoH1 + "prodotto1=" + prodotto1 + ";";
+    prodottiCookie += tipoProdottoH1 + " casual=" + prodotto1 + ";";
   }
 
   if (prodottiCookie) {
     aggiornaCookie(tipoProdottoH1, prodottiCookie);
-    alert("prodotti aggiunti al carrello");
+
     window.location.href = "../homepage.html";
     console.log(localStorage.getItem("cookieStr"));
   } else {
-    console.log("Nessun prodotto aggiunto");
+    alert("Nessun prodotto aggiunto!");
+    window.location.href = "../homepage.html";
   }
 }
