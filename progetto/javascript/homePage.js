@@ -1,3 +1,4 @@
+//Funzione che modifica l'aspetto del puntatore del mouse quando si passa sopra l'elemento.
 /**/ function gestoreCursore() {
   /**/ try {
     /**/ this.style.cursor = "pointer";
@@ -8,11 +9,13 @@
   }
   /**/
 }
+//Funzione anonima che al click del bottone con id bottoneCarrello reindirizza alla pagina carrello.
 bottoneCarrello.addEventListener("click", function () {
   window.location.href = "../html/carrello.html";
 });
-
+//aggiunta del listener che esegue la funzione anonima.
 document.addEventListener("DOMContentLoaded", function () {
+  // Array di prodotti.
   let prodotti = [
     {
       tipo: "Scarpe",
@@ -54,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const contenitoreProdotti = document.getElementById("prodotti");
 
+  //Funzione ForEach che cicla l'array prodotti e per ogni elemento crea un div contenitore con all'interno un h2 e un img.
   prodotti.forEach((prodotto) => {
     // Creazione del div contenitore
     const div = document.createElement("div");
