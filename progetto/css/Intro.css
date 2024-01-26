@@ -5,6 +5,8 @@ html, body {
     font-family: 'Times New Roman', Times, serif, sans-serif;
 }
 
+
+
 .container {
     text-align: center;
     width: 50%; /* Imposta la larghezza a metà della finestra */
@@ -21,14 +23,16 @@ h1 {
     font-family: 'Arial', sans-serif; /* Cambia il font se necessario */
     /* Altri stili per la scritta */
 }
-.avviso-valuta {
-    color: red;
-    display: block;
-}
 
 .avviso-nascosto {
     display: none;
 }
+
+.avviso-visibile {
+    display: block;
+    color: red; /* Or any other styling you want */
+}
+
 
 .immagine-angolo {
     position: fixed;
@@ -39,7 +43,13 @@ h1 {
     background-repeat: repeat;
 }
 
-
+#procedi{
+padding: 5px ;
+border-radius: 4px;
+background-color: #007bff;
+color: white;
+cursor: pointer;
+}
 #immagineAngolo4 {
     background-image: url('../immagini/store-7850716_1920.jpg');
     background-size: cover;

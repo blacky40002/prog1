@@ -1,9 +1,12 @@
-function gestoreCursore() {
-  try {
-    this.style.cursor = "pointer";
+/**/ function gestoreCursore() {
+  /**/ try {
+    /**/ this.style.cursor = "pointer";
+    /**/
   } catch (e) {
-    alert("gestoreCursore " + e);
+    /**/ alert("gestoreCursore " + e);
+    /**/
   }
+  /**/
 }
 bottoneCarrello.addEventListener("click", function () {
   window.location.href = "../html/carrello.html";
@@ -52,12 +55,27 @@ document.addEventListener("DOMContentLoaded", function () {
   const contenitoreProdotti = document.getElementById("prodotti");
 
   prodotti.forEach((prodotto) => {
+    // Creazione del div contenitore
     const div = document.createElement("div");
-    div.innerHTML = `<h2>${prodotto.nome}</h2><img src="${prodotto.immagine}" alt="${prodotto.nome}">`;
+
+    // Creazione e configurazione dell'elemento <h2>
+    const h2 = document.createElement("h2");
+    h2.textContent = prodotto.nome;
+    div.appendChild(h2);
+
+    // Creazione e configurazione dell'elemento <img>
+    const img = document.createElement("img");
+    img.src = prodotto.immagine;
+    img.alt = prodotto.nome;
+    div.appendChild(img);
+
+    // Aggiunta degli event listeners
     div.addEventListener("mouseover", gestoreCursore);
     div.addEventListener("click", function () {
       window.location.href = prodotto.url; // Reindirizza all'URL del prodotto quando cliccato
     });
+
+    // Aggiunta del div al contenitore
     contenitoreProdotti.appendChild(div);
   });
 });

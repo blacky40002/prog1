@@ -6,16 +6,14 @@ function procedi() {
 
   if (valuta === "-") {
     avvisoValuta.classList.remove("avviso-nascosto");
+    avvisoValuta.classList.add("avviso-visibile");
   } else {
+    avvisoValuta.classList.remove("avviso-visibile");
     avvisoValuta.classList.add("avviso-nascosto");
     creaCookie(valuta);
-    // Comment out the line below for debugging
     window.location.href = "../html/homepage.html";
   }
 }
-
-
-
 function creaCookie(valuta) {
   localStorage.clear();
   var scadenzaMilliSecondi = 15 * 60 * 1000; // 15 minutes in milliseconds
@@ -29,34 +27,21 @@ function creaCookie(valuta) {
   console.log("Current cookie item:", cookieStr[1]);
 }
 
-
 function aggiornaLocalStorage(newCookieData) {
   localStorage.setItem("cookieStr", JSON.stringify(cookieStr));
-/*  let cookieInMemoria = localStorage.getItem("cookieStr");
-  let cookieTrasformato = cookieInMemoria ? JSON.parse(cookieInMemoria) : [];
-
-  // Add each new cookie data item to the transformed cookie array
-  for (var i = 0; i < newCookieData.length; i++) {
-    cookieTrasformato.push(newCookieData[i]);
-  }
-
-  localStorage.setItem("cookieStr", JSON.stringify(cookieTrasformato));*/
 }
-
 
 function aggiornaCookie(prodotto, valore) {
   cookieStr = JSON.parse(localStorage.getItem("cookieStr"));
   if (controlloScadenza(cookieStr[1])) {
     // Session is valid, update the cookie
 
-      let nuovoCookie = [prodotto, valore];
-      cookieStr.push(nuovoCookie);
-      aggiornaLocalStorage(cookieStr);
-      alert("prodotti aggiunti al carrello");
-
-    }
+    let nuovoCookie = [prodotto, valore];
+    cookieStr.push(nuovoCookie);
+    aggiornaLocalStorage(cookieStr);
+    alert("prodotti aggiunti al carrello");
+  }
 }
-
 
 function controlloScadenza(dataScadenza) {
   var oraAttuale = new Date().getTime();
@@ -69,12 +54,7 @@ function controlloScadenza(dataScadenza) {
     alert("Sessione scaduta!");
     return false;
   }
-
 }
-
-
-
-
 
 function prodottiCaricamento() {
   var h1NelCont = document.querySelector(".cont h1");

@@ -1,7 +1,40 @@
-
 .contenitori {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 20px;
 }
+
+.bottoni {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Aggiunge spazio tra i bottoni */
+    margin-top: 20px;
+}
+
+.bottoni button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    
+}
+
+
+
+h1 {
+    margin: 20px 0;
+    color: #333;
+}
+
+#prezzoFinale {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #0059b8;
+    margin: 15px 0;
+}
+

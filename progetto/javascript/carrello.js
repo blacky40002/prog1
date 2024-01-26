@@ -1,7 +1,7 @@
 var scarpe = [];
 var magliette = [];
 var pantaloni = [];
-var prezzoFinale;
+var prezzoFinale = 0;
 
 function estraiCookie(cookieStr) {
   if (cookieStr.length > 1 && controlloScadenza(cookieStr[1])) {
@@ -19,7 +19,10 @@ function estraiCookie(cookieStr) {
       }
     }
   } else {
-    console.log("Errore nei dati del cookie o sessione scaduta:", localStorage.getItem("cookieStr"));
+    console.log(
+      "Errore nei dati del cookie o sessione scaduta:",
+      localStorage.getItem("cookieStr")
+    );
     window.location.href = "../html/index.html";
     alert("C'è stato un errore inaspettato ricominciare la sessione!");
   }
@@ -27,50 +30,62 @@ function estraiCookie(cookieStr) {
 
 function smistaProdotti(primo, secondo) {
   if (primo.includes("scarpe")) {
-    scarpe.push({tipo: primo, quantita: secondo});
+    scarpe.push({ tipo: primo, quantita: secondo });
   } else if (primo.includes("magliette")) {
-    magliette.push({tipo: primo, quantita: secondo});
+    magliette.push({ tipo: primo, quantita: secondo });
   } else if (primo.includes("pantaloni")) {
-    pantaloni.push({tipo: primo, quantita: secondo});
+    pantaloni.push({ tipo: primo, quantita: secondo });
   }
-
 }
-
 
 function calcolaPrezzo(tipoProdotto, quantita) {
   let valuta = localStorage.getItem("cookieStr")[0];
-    if (valuta == "EUR") valuta = 1;
-    else if (valuta == "USD") valuta = 1.2;
-    else if (valuta == "GBP") valuta = 0.9;
+  let valoreValuta = 1; // Fattore di conversione di default è 1 per EUR
+  if (valuta == "USD") valoreValuta = 1.2;
+  else if (valuta == "GBP") valoreValuta = 0.9;
 
-  var prezzo = 0;
+  var prezzoUnitario = 0;
   if (tipoProdotto.includes("scarpe")) {
-    prezzo = 50 * valuta;
+    prezzoUnitario = 50;
   } else if (tipoProdotto.includes("magliette")) {
-    prezzo = 20 * valuta;
+    prezzoUnitario = 20;
   } else if (tipoProdotto.includes("pantaloni")) {
-    prezzo = 40 * valuta;
+    prezzoUnitario = 40;
   }
-  prezzoFinale += prezzo * quantita;
+
+  var prezzo = prezzoUnitario * valoreValuta * quantita;
+  prezzoFinale += prezzo;
 }
 
+function creaElementiPerProdotto(arrayProdotti, idContenitore) {
+  var contenitore = document.getElementById(idContenitore);
+  contenitore.textContent = ""; // Pulisce il contenitore
+
+  arrayProdotti.forEach((prodotto) => {
+    var nodo = document.createElement("div");
+    let tipoSpecifico = prodotto.quantita.split("=")[0];
+    let quantitaSpecifico = prodotto.quantita.split("=")[1];
+
+    calcolaPrezzo(tipoSpecifico, parseInt(quantitaSpecifico)); // Assicurati che la quantità sia un numero
+
+    // Creazione e aggiunta del testo al nodo
+    nodo.textContent = `Tipo: ${tipoSpecifico}, Quantità: ${quantitaSpecifico}`;
+    contenitore.appendChild(nodo);
+  });
+}
+
+function generaPrezzoFinale() {
+  var contenitorePrezzo = document.getElementById("prezzoFinale");
+
+  if (prezzoFinale == 0) contenitorePrezzo.textContent = "Carrello vuoto!";
+  else {
+    var cookie = JSON.parse(localStorage.getItem("cookieStr"));
+    var valuta = cookie[0];
+    contenitorePrezzo.textContent = `Prezzo finale: ${prezzoFinale} in ${valuta}`;
+  }
+}
 
 function generaElementiHTML() {
-  function creaElementiPerProdotto(arrayProdotti, idContenitore) {
-    var contenitore = document.getElementById(idContenitore);
-    contenitore.innerHTML = "";
-
-    arrayProdotti.forEach((prodotto) => {
-      var nodo = document.createElement("div");
-      let tipoSpecifico = prodotto.quantita.split("=")[0];
-      let quantitaSpecifico = prodotto.quantita.split("=")[1];
-      let tipo = `Tipo: ${tipoSpecifico}, Quantià: ${quantitaSpecifico}`;
-
-      nodo.innerHTML = tipo;
-      contenitore.appendChild(nodo);
-    });
-  }
-
   creaElementiPerProdotto(scarpe, "contenitoreScarpe");
   creaElementiPerProdotto(magliette, "contenitoreMagliette");
   creaElementiPerProdotto(pantaloni, "contenitorePantaloni");
@@ -83,5 +98,19 @@ window.onload = function () {
   estraiCookie(cookieStr);
 
   generaElementiHTML();
-  console.log(scarpe, magliette, pantaloni)
+
+  generaPrezzoFinale();
+  console.log(prezzoFinale + "prezzo finale");
+  console.log(scarpe, magliette, pantaloni);
+  bottoneAcquista.addEventListener("click", function () {
+    window.location.href = "../html/finale.html";
+  });
+
+  bottoneAnnulla.addEventListener("click", function () {
+    localStorage.clear();
+    window.location.href = "../html/index.html";
+  });
+  bottoneIndietro.addEventListener("click", function () {
+    window.location.href = "../html/homepage.html";
+  });
 };
