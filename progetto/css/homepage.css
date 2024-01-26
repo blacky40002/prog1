@@ -7,6 +7,16 @@ body {
     text-align: center; /* Centra il testo */
 }
 
+
+#bottoneCarrello {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+   
+}
+
 /* Stile per l'intestazione */
 h1 {
     background: #3e3d3d;
